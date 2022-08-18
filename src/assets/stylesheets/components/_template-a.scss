@@ -1,0 +1,17 @@
+.ta {
+  background-color: beige;
+  height: 1000px;
+  width: calc(100% - 50px);
+  margin: 0 25px;
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+  
+    color: rgba(255, 255, 255, 0.9);
+    background-color: #000;
+    height: 27%;
+    
+    
+  }
+}
