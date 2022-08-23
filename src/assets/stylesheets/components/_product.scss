@@ -1,0 +1,18 @@
+.product {
+  display: flex;
+  justify-content: space-between;
+  
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    & > * {
+      margin-bottom: 4px;
+    }
+  }
+  
+  &__image {
+    width: 40px;
+  }
+}

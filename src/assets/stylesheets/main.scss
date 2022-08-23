@@ -14,20 +14,23 @@
 @import
   'base/base',
   'base/fonts',
-  'base/typography',
-  'base/helpers';
+  'base/typography';
 
 // 4. Layout-related sections
 @import
-  'layout/header',
-  'layout/footer';
+  'layout/body',
+  'layout/purchase-detail';
 
 // 5. Components
 @import
   'components/button',
-  'components/person-info',
-  'components/template-a';
-
+  'components/user',
+  'components/item',
+  'components/purchase',
+  'components/product',
+  'components/block',
+  'components/card';
+  
 // 6. Page-specific styles
 @import
   'pages/home';
