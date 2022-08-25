@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  CLEAR_STATUS,
   SHOW_LOADER,
   HIDE_LOADER,
   LOAD_USER_SUCCESS,
@@ -75,3 +76,4 @@ export const loadData = (route, urlParam, actionType) => {
 
 export const showLoader = () => ({type: SHOW_LOADER});
 export const hideLoader = () => ({type: HIDE_LOADER});
+export const clearStatus = () => ({type: CLEAR_STATUS});

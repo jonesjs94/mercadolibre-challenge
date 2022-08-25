@@ -2,6 +2,58 @@
   display: flex;
   justify-content: space-between;
   
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+  
+  &__id {
+    font-size: 14px;
+    // color: #3483fa;
+  }
+  
+  &__payment_status {
+    border: 1px solid;
+    font-size: 14px;
+    text-transform: capitalize;
+    padding: 4px 8px;
+    border-radius: 3px;
+    
+    &:hover {
+      cursor: pointer;
+    }
+    
+    &--cancelada,
+    &--rechazada{
+      color: $red;
+      border-color: $red;  
+    }
+    
+    &--realizada {
+      color: $green;
+      border-color: $green;  
+    }
+  }
+  
+  &__shipment-status {
+    margin-left: 5px;
+    text-decoration: underline;
+
+    &--cancelado {
+      color: $red;
+    }
+    &--entregado {
+      color: $green;
+    }
+  }
+  
   &__info {
     display: flex;
     flex-direction: column;
@@ -12,7 +64,34 @@
     }
   }
   
+  &__amount {
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
   &__image {
     width: 40px;
+  }
+  
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding: 0px 8px;
+  }
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  width: 225px;
+  border-top: 1px solid rgba(0,0,0,.2);
+  padding-top: 8px;
+  
+  & p {
+    color: $text-grey;
+    font-size: 15px;
   }
 }

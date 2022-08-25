@@ -1,6 +1,7 @@
 import {
   LOAD_SHIPMENT_SUCCESS,
-  LOAD_SHIPMENT_ERROR
+  LOAD_SHIPMENT_ERROR,
+  CLEAR_STATUS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -20,6 +21,8 @@ export default function shipment(state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case CLEAR_STATUS:
+      return initialState
     default:
       return state
   };

@@ -1,5 +1,6 @@
 export const SHOW_LOADER = 'show_loader',
              HIDE_LOADER = 'hide_loader',
+             CLEAR_STATUS = 'clear_status',
              // USER
              LOAD_USER_SUCCESS = 'load_user_success',
              LOAD_USER_ERROR   = 'load_user_error',

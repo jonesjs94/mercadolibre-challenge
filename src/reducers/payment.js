@@ -1,6 +1,7 @@
 import {
   LOAD_PAYMENT_SUCCESS,
-  LOAD_PAYMENT_ERROR
+  LOAD_PAYMENT_ERROR,
+  CLEAR_STATUS
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -20,6 +21,8 @@ export default function payment(state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case CLEAR_STATUS:
+      return initialState  
     default:
       return state
   };
