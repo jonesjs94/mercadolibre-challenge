@@ -1,8 +1,7 @@
 import axios from 'axios';
 import {
-  LOAD_DATA_PENDING,
-  LOAD_DATA_SUCCESS,
-  LOAD_DATA_ERROR,
+  SHOW_LOADER,
+  HIDE_LOADER,
   LOAD_USER_SUCCESS,
   LOAD_USER_ERROR,
   LOAD_LEVEL_SUCCESS,
@@ -21,16 +20,13 @@ import {
 /**
  *  Fetch data to the api
  * @param {string} route
- * @param {string} param
+ * @param {string} urlParam
  * @param {string} actionType
  */
-export const loadData = (route, param, actionType) => {
+export const loadData = (route, urlParam, actionType) => {
   return dispatch => {
-    dispatch({ type: LOAD_DATA_PENDING });
-    
-    axios.get(`http://localhost:3000/${route}?${param}`)
+    axios.get(`http://localhost:3000/${route}?${urlParam}`)
     .then(response => {
-      dispatch({ type: LOAD_DATA_SUCCESS });
       switch(actionType) {
         case 'USER':
           dispatch({ type: LOAD_USER_SUCCESS, payload: response.data });
@@ -53,29 +49,29 @@ export const loadData = (route, param, actionType) => {
       }
     })
     .catch(error => {
-      console.error(error);
-      dispatch({ type: LOAD_DATA_ERROR });
-      
       switch(actionType) {
         case 'USER':
-          dispatch({ type: LOAD_USER_ERROR, payload: response.data });
+          dispatch({ type: LOAD_USER_ERROR, payload: error.response.data });
           break;
         case 'LEVEL':
-          dispatch({ type: LOAD_LEVEL_ERROR, payload: response.data });
+          dispatch({ type: LOAD_LEVEL_ERROR, payload: error.response.data });
           break;
         case 'RESTRICTIONS':
-          dispatch({ type: LOAD_RESTRICTIONS_ERROR, payload: response.data });
+          dispatch({ type: LOAD_RESTRICTIONS_ERROR, payload: error.response.data });
           break;
         case 'PURCHASES':
-          dispatch({ type: LOAD_PURCHASES_ERROR, payload: response.data });
+          dispatch({ type: LOAD_PURCHASES_ERROR, payload: error.response.data });
           break;
         case 'SHIPMENT':
-          dispatch({ type: LOAD_SHIPMENT_ERROR, payload: response.data });
+          dispatch({ type: LOAD_SHIPMENT_ERROR, payload: error.response.data });
           break;
         case 'PAYMENT':
-          dispatch({ type: LOAD_PAYMENT_ERROR, payload: response.data });
+          dispatch({ type: LOAD_PAYMENT_ERROR, payload: error.response.data });
           break;
       }
     });
   };
 };
+
+export const showLoader = () => ({type: SHOW_LOADER});
+export const hideLoader = () => ({type: HIDE_LOADER});

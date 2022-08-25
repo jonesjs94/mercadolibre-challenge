@@ -15,14 +15,14 @@ app.get('/user', (req, res) => {
     res.status(200).json(user)  
   })
   .catch(error => {
-    res.status(404).send(error);
+    res.status(404).send(error.message);
     next();
   });
 });
 
 // level
 app.get('/level', (req, res) => {
-  microService.getLevel(req.query.userId)
+  microService.getLevel(req.query.levelId)
   .then(level => {
     res.status(200).json(level)
   })
@@ -39,7 +39,7 @@ app.get('/purchases', (req, res, next) => {
     res.status(200).json(purchases);
   })
   .catch(error => {
-    res.status(404).send(error);
+    res.status(404).send(error.message);
     next();
   });
 });
@@ -51,7 +51,7 @@ app.get('/restrictions', (req, res, next) => {
     res.status(200).json(restrictions);
   })
   .catch(error => {
-    res.status(404).send(error);
+    res.status(404).send(error.message);
     next();
   });  
 });
@@ -59,24 +59,25 @@ app.get('/restrictions', (req, res, next) => {
 // shipment
 app.get('/shipment-status', (req, res, next) => {
   microService.getShipment(req.query.shipmentId)
-  .then(restrictions => {
-    res.status(200).json(restrictions);
+  .then(shipment => {
+    res.status(200).json(shipment);
   })
   .catch(error => {
-    res.status(404).send(error);
-      next();
+    res.status(404).send(error.message);
+    next();
   });
 });
 
 // payment
 app.get('/payment-status', (req, res, next) => {
   microService.getPayment(req.query.paymentId)
-  .then(restrictions => {
-    res.status(200).json(restrictions);
+  .then(payment => {
+    res.status(200).json(payment);
   })
   .catch(error => {
-    res.status(404).send(error);
-      next();
+  console.log(error.message)
+    res.status(404).send(error.message);
+    next();
   });
 });
 

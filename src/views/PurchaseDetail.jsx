@@ -1,63 +1,76 @@
-import React, {useState} from "react";
-import moment from "moment";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {Link, Navigate} from "react-router-dom";
+import {loadData, showLoader, hideLoader} from "../actions";
+import {Breadcrumbs} from "@mui/material";
+import {LinearProgress} from '@mui/material';
 
-function PurchaseDetail() {
-  const compra = {
-    id_compra: 300200,
-    titulo: 'Celular LG K40',
-    precio: {
-      total: 105000.00,
-      moneda: 'ARS',
-    },
-    cantidad: 3,
-    fecha: '2022-07-25T10:23:18.000-03:00',
-    imagen: 'https://http2.mlstatic.com/D_NQ_NP_969645-MLA46877067884_072021-V.webp',
-    vendedor: {
-      id: 4010,
-      nickname: 'FAROCUDR19',
-    },
-    id_transaccion: 7010200,
-    id_envio: 1000010200,
-  };
-  
-  const transaccion = {
-    id_transaccion: 7010200,
-    estado: 'rechazada',
-  };
-  
-  const envio = {
-    id_envio: 1000010200,
-    estado: 'cancelado',
-  };
+function PurchaseDetail(props) {
+  const params = new URLSearchParams(window.location.search);
+  const purchaseSelected = props.purchases ? 
+    props.purchases.find(p => p.id_compra == params.get('compraId'))
+    : null;
 
+  // load and set Shipment status - show loader
+  useEffect(() => {
+    props.showLoader();
+    
+    if(purchaseSelected && !props.shipment) {
+      props.loadData('shipment-status', `shipmentId=${purchaseSelected.id_envio}`, 'SHIPMENT');
+    } 
+  }, [props.shipment]);
+  
+  // load and set Payment status - hide loader
+  useEffect(() => {
+    if(purchaseSelected && !props.payment) {
+      props.loadData('payment-status', `paymentId=${purchaseSelected.id_transaccion}`, 'PAYMENT');
+    } 
+    
+    if (props.payment && props.shipment) {
+      props.hideLoader();
+    }
+  }, [props.payment]);
+  
   return (
+    <>
+    {!props.purchases ?
+      <Navigate replace to="/profile" />
+    :
+    props.loading ?
+      <div className='loader'>
+        <LinearProgress />
+      </div>
+    :
     <div className="container">
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link to="/profile">
+          Compras
+        </Link>
+        <p>Detalle de compra</p>
+      </Breadcrumbs>
       
-      <div className="breadcrumb">
-        <p>Compra - Estado de la compra</p>
-      </div>
-      
+      {props.shipment ? 
       <div className="state">
-        <h2 className={`${transaccion.estado}`}>
-          Su compra fue {transaccion.estado}
+        <h2 className={`${props.shipment.estado}`}>
+          Su compra fue {props.shipment.estado}
         </h2>
-      </div>
+      </div> : null}
       
       <div className="purchase-detail">
-
+  
         <div className="card card--big product">
           <div className="product__info">
             <h3 className="product__title text-title">
-              {compra.titulo}
+              {purchaseSelected.titulo}
             </h3>
             <p className="product__amount text-grey">
-              Vendido por {compra.vendedor.nickname}
+              Vendido por {purchaseSelected.vendedor.nickname}
             </p>
             <p className="product__amount text-grey">
-              {`${compra.cantidad} ${compra.cantidad === 1 ? 'unidad' : 'unidades'}`}
+              {`${purchaseSelected.cantidad} ${purchaseSelected.cantidad === 1 ? 'Unidad' : 'Unidades'}`}
             </p>
           </div>
-          <img className="product__image" src={compra.imagen} />
+          <img className="product__image" src={purchaseSelected.imagen} />
         </div>
         
         <div className="detail">
@@ -67,23 +80,32 @@ function PurchaseDetail() {
           <p className="text-grey">
             13 de mayo | #7010191
           </p>
+          {props.payment ?
           <p className="text-grey">
-            Pago realizado
+            Pago {props.payment.estado}
           </p>
-      </div>
+          : null}
+        </div>
       </div>
     </div>
+    }
+  </>
   );
 };
 
-export default PurchaseDetail;
-/* 
+const mapPropsToState = state => ({
+  purchases: state.purchases.data,
+  shipment: state.shipment.data,
+  payment: state.payment.data,
+  loading: state.loader.loading
+});
 
+const mapDispatchToProps = dispatch => ({
+  loadData: (route, urlParam, actionType) => dispatch(loadData(route, urlParam, actionType)),
+  showLoader: () => dispatch(showLoader()),
+  hideLoader: () => dispatch(hideLoader()),
+});
 
-- Id de la compra
-- Fecha de compra
-
-- Precio
-
-- Estado del pago
-*/
+export default connect(
+  mapPropsToState, mapDispatchToProps
+)(PurchaseDetail);

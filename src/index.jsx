@@ -6,6 +6,9 @@ import {store} from './store';
 import App from './App';
 import DevTools from './utils/Devtools';
 import './assets/stylesheets/main.scss';
+import moment from 'moment';
+
+moment.locale('es');
 
 const root = createRoot(document.getElementById('root'));
 
@@ -13,8 +16,8 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <App />
         <DevTools />
+        <App />
       </div>
     </BrowserRouter>
   </Provider>

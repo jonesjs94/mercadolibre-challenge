@@ -19,6 +19,7 @@
 // 4. Layout-related sections
 @import
   'layout/body',
+  'layout/header',
   'layout/purchase-detail';
 
 // 5. Components
@@ -26,6 +27,7 @@
   'components/button',
   'components/user',
   'components/item',
+  'components/loader',
   'components/purchase',
   'components/product',
   'components/block',

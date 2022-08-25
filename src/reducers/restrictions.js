@@ -4,7 +4,7 @@ import {
 } from '../actions/actionTypes';
 
 const initialState = {
-  data: {},
+  data: null,
   error: null
 }
 

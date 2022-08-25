@@ -1,6 +1,5 @@
-export const LOAD_DATA_PENDING = 'load_data_pending',
-             LOAD_DATA_SUCCESS = 'load_data_success',
-             LOAD_DATA_ERROR = 'load_data_error',
+export const SHOW_LOADER = 'show_loader',
+             HIDE_LOADER = 'hide_loader',
              // USER
              LOAD_USER_SUCCESS = 'load_user_success',
              LOAD_USER_ERROR   = 'load_user_error',

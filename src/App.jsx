@@ -1,23 +1,20 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header.jsx';
 import Profile from './views/Profile.jsx';
 import PurchaseDetail from './views/PurchaseDetail.jsx';
 
 function App(props) {
     return (
+      <>
+      <Header />
         <Routes>
-          <Route exact path="/" element={<Profile />} />
-          <Route exact path="purchase-detail" element={<PurchaseDetail />} />
+          <Route path="*" element={<Profile />} />
+          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="purchase_detail" element={<PurchaseDetail />} />
           <Route exact path="purchases/:id" element={<PurchaseDetail />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>Nada por acá!</p>
-              </main>
-            }
-          />
         </Routes>
+      </>
     );
 };
 
