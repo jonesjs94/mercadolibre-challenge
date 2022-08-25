@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import {handleDate} from '../utils';
+import {handleDate} from '../../utils';
 
 /* 
 todo:

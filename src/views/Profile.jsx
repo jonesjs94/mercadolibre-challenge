@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loadData, showLoader, hideLoader} from "../actions";
 import UserInfo from '../components/UserInfo.jsx';
-import ItemList from '../components/ItemList.jsx';
+import ItemList from '../components/ItemList';
 import {LinearProgress} from '@mui/material';
 
 function Profile(props) {
